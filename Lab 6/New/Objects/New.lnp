@@ -1,3 +1,0 @@
-".\Objects\New.obj" 
-TO ".\Objects\New" 
-PRINT(".\Listings\New.m51") RAMSIZE(256) 
