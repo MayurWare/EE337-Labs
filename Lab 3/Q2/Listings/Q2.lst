@@ -1,0 +1,116 @@
+A51 MACRO ASSEMBLER  Q2                                                                   02/08/2021 16:04:24 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\Q2.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Q2.a51 SET(SMALL) DEBUG PRINT(.\Listings\Q2.lst) OBJECT(.\Objects\Q2.ob
+                      j) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 000H                  ;Start Program
+0000 7590FF            2     MOV P1, #0FFH              ;Loading Port 1
+                       3     ;Setting Initial Conditions of P1.0 and P1.1
+0003 C290              4     CLR P1.0    
+0005 D291              5     SETB P1.1
+                       6     ;Clearing P1.4 and P1.6
+0007 C294              7     CLR P1.4 
+0009 C296              8     CLR P1.6
+                       9     
+000B                  10     MainProgram:              ;Main Program
+000B 209003           11     JB P1.0, Check1           ;Send to Check for P1.0=1
+000E 309006           12     JNB P1.0, Check2          ;Send to Check2 for P1.0=0
+                      13      
+0011                  14     Check1:
+0011 20912E           15     JB P1.1, Condition4       ;Send to Condition4
+0014 309106           16     JNB P1.1, Condition1      ;Send to Condition1
+                      17     
+0017                  18     Check2:
+0017 309121           19     JNB P1.1, Condition3      ;Send to Condition3
+001A 20910F           20     JB P1.1, Condition2       ;Send to Condition2
+                      21     
+                      22     
+001D                  23     Condition1:               ;First Condition : P1.0=1 and P1.1=0
+001D D294             24     SETB P1.4              
+001F 1155             25     ACALL DelayFunction
+0021 C294             26     CLR P1.4
+0023 1155             27     ACALL DelayFunction
+0025 1155             28     ACALL DelayFunction
+0027 1155             29     ACALL DelayFunction
+0029 02000B           30     LJMP MainProgram
+                      31     
+                      32     
+002C                  33     Condition2:                ;Second Condition : P1.0=0 and P1.1=1
+002C D296             34     SETB P1.6
+002E 1155             35     ACALL DelayFunction
+0030 1155             36     ACALL DelayFunction
+0032 C296             37     CLR P1.6
+0034 1155             38     ACALL DelayFunction
+0036 1155             39     ACALL DelayFunction
+0038 02000B           40     LJMP MainProgram
+                      41     
+003B                  42     Condition3:                ;Third Condition : P1.0=0 and P1.1=0
+003B C294             43     CLR P1.4
+003D C296             44     CLR P1.6
+003F 02000B           45     LJMP MainProgram
+                      46     
+0042                  47     Condition4:                ;Fourth Condition : P1.0=1 and P1.1=1
+0042 D296             48     SETB P1.6
+0044 D294             49     SETB P1.4
+0046 1155             50     ACALL DelayFunction
+0048 C294             51     CLR P1.4
+004A 1155             52     ACALL DelayFunction
+004C C296             53     CLR P1.6
+004E 1155             54     ACALL DelayFunction
+0050 1155             55     ACALL DelayFunction
+0052 02000B           56     LJMP MainProgram
+                      57     
+A51 MACRO ASSEMBLER  Q2                                                                   02/08/2021 16:04:24 PAGE     2
+
+0055                  58     DelayFunction:             ;Delay Function
+0055 7829             59     MOV R0,#41                 ;Load 41 into R0 (For 41 times repeatition)
+0057                  60     ReCall:
+0057 D801             61     DJNZ R0,PartDelay        
+0059 22               62     RET
+005A 758901           63     PartDelay:MOV TMOD,#1      
+005D 758C3C           64     MOV TH0,#03CH
+0060 758AB0           65     MOV TL0,#0B0H 
+0063 D28C             66     SETB TR0
+0065                  67     here: 
+0065 308DFD           68     JNB TF0,here 
+0068 C28C             69     CLR TR0 
+006A C28D             70     CLR TF0
+006C 80E9             71     SJMP ReCall  
+                      72     
+                      73     END                       ;End Program
+A51 MACRO ASSEMBLER  Q2                                                                   02/08/2021 16:04:24 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CHECK1 . . . . . .  C ADDR   0011H   A   
+CHECK2 . . . . . .  C ADDR   0017H   A   
+CONDITION1 . . . .  C ADDR   001DH   A   
+CONDITION2 . . . .  C ADDR   002CH   A   
+CONDITION3 . . . .  C ADDR   003BH   A   
+CONDITION4 . . . .  C ADDR   0042H   A   
+DELAYFUNCTION. . .  C ADDR   0055H   A   
+HERE . . . . . . .  C ADDR   0065H   A   
+MAINPROGRAM. . . .  C ADDR   000BH   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+PARTDELAY. . . . .  C ADDR   005AH   A   
+RECALL . . . . . .  C ADDR   0057H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

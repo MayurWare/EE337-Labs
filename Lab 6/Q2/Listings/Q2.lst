@@ -1,0 +1,104 @@
+A51 MACRO ASSEMBLER  Q2                                                                   03/13/2021 21:08:18 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\Q2.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Q2.a51 SET(SMALL) DEBUG PRINT(.\Listings\Q2.lst) OBJECT(.\Objects\Q2.ob
+                      j) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 000H                   ;Start Program
+0000 020025            2     LJMP Main                  ;Jump to Main Program
+                       3     
+                       4     ;Timer 0 Interrupt
+000B                   5     ORG 000BH           
+000B B280              6     CPL P0.0                   ;Complement the value of P0.0
+000D 888C              7     MOV TH0, R0                ;Load TH0
+000F 898A              8     MOV TL0, R1                ;Load TH0
+0011 D28C              9     SETB TR0                   ;Rum Timer 0
+0013 32               10     RETI 
+                      11     
+                      12     ;Timer 1 Interrupt
+001B                  13     ORG 001BH
+                      14     ;Load Timer 1 with #3CB0H for 25 m sec time
+001B 758D3C           15     MOV TH1, #03CH            ;Load TH1        
+001E 758BB0           16     MOV TL1, #0B0H            ;Load TL1
+0021 D28E             17     SETB TR1                  ;Run Timer 1
+0023 0D               18     INC R5                    ;Increase R5 by 1
+0024 32               19     RETI
+                      20     
+                      21     
+0025                  22     Main:
+0025 7D00             23     MOV R5, #0                ;Clear R5
+0027 D2AF             24     SETB EA                   ;Set Global Interrupt
+0029 D2A9             25     SETB ET0                  ;Set Timer 0 interrupt
+002B D2AB             26     SETB ET1                  ;Set Timer 1 interrupt
+002D 758911           27     MOV TMOD, #00010001B      ;Setting both timers in Mode 1
+                      28     
+                      29     ;Load Timer 1 with #3CB0H for 25 m sec time
+0030 758D3C           30     MOV TH1,#03CH             ;Loading TH0
+0033 758BB0           31     MOV TL1,#0B0H             ;Loading TL0
+                      32     
+                      33     ;Load Timer 0 with #0F189H for 540Hz freqency i.e 1/540 sec time
+0036 78F1             34     MOV R0, #0F1H             ;Load R0   
+0038 7989             35     MOV R1, #89H              ;Load R1
+003A 888C             36     MOV TH0, R0
+003C 898A             37     MOV TL0, R1
+003E D28C             38     SETB TR0                  ;Run Timer 0
+0040 D28E             39     SETB TR1                  ;Run Timer 1
+                      40     
+0042                  41     here:
+0042 BD50FD           42     CJNE R5, #50H, here       ;Wait for 80 cycles [80*25=2000m sec = 2sec)
+                      43     
+0045 C28C             44     CLR TR0                   ;Stop Timer 0
+0047 C28E             45     CLR TR1                   ;Stop Timer 1
+                      46     
+0049 7D00             47     MOV R5, #0                ;Clear R5
+                      48     ;Load Timer 1 with #3CB0H for 25 m sec time
+004B 758D3C           49     MOV TH1,#03CH             ;Loading TH0
+004E 758BB0           50     MOV TL1,#0B0H             ;Loading TL0
+                      51     
+                      52     ;Load Timer 0 with #0F2FBH for 600Hz freqency i.e 1/600 sec time
+0051 78F2             53     MOV R0, #0F2H             ;Load R0   
+0053 79FB             54     MOV R1, #0FBH             ;Load R1
+0055 888C             55     MOV TH0, R0
+0057 898A             56     MOV TL0, R1
+0059 D28C             57     SETB TR0                  ;Run Timer 0
+A51 MACRO ASSEMBLER  Q2                                                                   03/13/2021 21:08:18 PAGE     2
+
+005B D28E             58     SETB TR1                  ;Run Timer 1
+                      59     
+005D                  60     here2:
+005D BD50FD           61     CJNE R5, #50H, here2      ;Wait for 80 cycles [80*25=2000m sec = 2sec)
+0060 020025           62     LJMP Main                 ;Jump to Main
+                      63     
+                      64     END
+A51 MACRO ASSEMBLER  Q2                                                                   03/13/2021 21:08:18 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+ET1. . . . . . . .  B ADDR   00A8H.3 A   
+HERE . . . . . . .  C ADDR   0042H   A   
+HERE2. . . . . . .  C ADDR   005DH   A   
+MAIN . . . . . . .  C ADDR   0025H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

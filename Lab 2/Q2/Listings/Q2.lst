@@ -1,0 +1,101 @@
+A51 MACRO ASSEMBLER  Q2                                                                   02/01/2021 16:53:36 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\Q2.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Q2.a51 SET(SMALL) DEBUG PRINT(.\Listings\Q2.lst) OBJECT(.\Objects\Q2.ob
+                      j) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 00H
+0000 D2D5              2     SETB F0
+0002 756003            3     MOV 60H, #3
+0005 756101            4     MOV 61H, #1
+0008 756204            5     MOV 62H, #4
+000B 756303            6     MOV 63H, #3
+000E 756404            7     MOV 64H, #4
+0011 756501            8     MOV 65H, #1
+0014 756602            9     MOV 66H, #2
+0017 756703           10     MOV 67H, #3
+001A 756802           11     MOV 68H, #2
+001D 756901           12     MOV 69H, #1
+                      13     
+0020 E4               14     CLR A
+0021 2560             15     ADD A, 60H
+0023 9404             16     SUBB A, #04H
+0025 500E             17     JNC four
+0027 E4               18     CLR A
+0028 2560             19     ADD A, 60H
+002A 9403             20     SUBB A, #03H
+002C 502E             21     JNC three
+002E E4               22     CLR A
+002F 2560             23     ADD A, 60H
+0031 9402             24     SUBB A, #02H
+0033 503C             25     JNC two
+                      26     
+0035                  27     four:
+0035 E562             28     MOV A, 62H
+0037 B56540           29     CJNE A, 65H, set0
+003A E4               30     CLR A
+003B E563             31     MOV A, 63H
+003D B5693A           32     CJNE A, 69H, set0
+0040 E4               33     CLR A
+0041 E564             34     MOV A, 64H
+0043 B56D34           35     CJNE A, 6DH, set0
+0046 E4               36     CLR A
+0047 E567             37     MOV A, 67H
+0049 B56A2E           38     CJNE A, 6AH, set0
+004C E4               39     CLR A
+004D E568             40     MOV A, 68H
+004F B56E28           41     CJNE A, 6EH, set0
+0052 E4               42     CLR A
+0053 E56C             43     MOV A, 6CH
+0055 B56F22           44     CJNE A, 6FH, set0
+0058 E4               45     CLR A
+0059 02007C           46     LJMP HERE
+005C                  47     three:
+005C E562             48     MOV A, 62H
+005E B56419           49     CJNE A, 64H, set0
+0061 E4               50     CLR A
+0062 E563             51     MOV A, 63H
+0064 B56713           52     CJNE A, 67H, set0
+0067 E4               53     CLR A
+0068 E566             54     MOV A, 66H
+006A B5680D           55     CJNE A, 68H, set0
+006D E4               56     CLR A
+006E 02007C           57     LJMP HERE
+A51 MACRO ASSEMBLER  Q2                                                                   02/01/2021 16:53:36 PAGE     2
+
+0071                  58     two:
+0071 E562             59     MOV A, 62H
+0073 B56304           60     CJNE A, 63H, set0
+0076 E4               61     CLR A
+                      62     
+                      63     
+0077 02007C           64     LJMP HERE
+007A                  65     set0:
+007A C2D5             66     CLR F0
+                      67     
+007C 80FE             68     HERE: SJMP HERE 
+                      69     END
+A51 MACRO ASSEMBLER  Q2                                                                   02/01/2021 16:53:36 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+F0 . . . . . . . .  B ADDR   00D0H.5 A   
+FOUR . . . . . . .  C ADDR   0035H   A   
+HERE . . . . . . .  C ADDR   007CH   A   
+SET0 . . . . . . .  C ADDR   007AH   A   
+THREE. . . . . . .  C ADDR   005CH   A   
+TWO. . . . . . . .  C ADDR   0071H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

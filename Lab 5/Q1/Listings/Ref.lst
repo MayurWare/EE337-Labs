@@ -1,0 +1,65 @@
+A51 MACRO ASSEMBLER  REF                                                                  03/05/2021 18:20:18 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\Ref.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Ref.a51 SET(SMALL) DEBUG PRINT(.\Listings\Ref.lst) OBJECT(.\Objects\Ref
+                      .obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 000H                  ;Start Program
+0000 7590FF            2     MOV P1, #0FFH             ;Setting input port P1
+0003                   3     LED_Blink:
+0003 D294              4     SETB P1.4                 ;Setting all LEDs to 1
+0005 D295              5     SETB P1.5
+0007 D296              6     SETB P1.6
+0009 D297              7     SETB P1.7
+000B 1118              8     ACALL DelayFunction       ;1 second delay
+000D C294              9     CLR P1.4                  ;Clearing all LEDs
+000F C295             10     CLR P1.5
+0011 C296             11     CLR P1.6
+0013 C297             12     CLR P1.7   
+0015 020003           13     LJMP LED_Blink
+                      14     
+0018                  15     DelayFunction:             ;Delay Function
+0018 7829             16     MOV R0,#41                 ;Load 41 into R0 (For 41 times repeatition)
+001A                  17     ReCall:
+001A D801             18     DJNZ R0,PartDelay        
+001C 22               19     RET
+001D                  20     PartDelay:
+001D 758901           21     MOV TMOD,#1                ;Setting Mode-1 for T0      
+0020 758C3C           22     MOV TH0,#03CH              ;Loading TH0
+0023 758AB0           23     MOV TL0,#0B0H              ;Loading TL0
+0026 D28C             24     SETB TR0                   ;Starting Timer T0
+0028                  25     here: 
+0028 308DFD           26     JNB TF0,here 
+002B C28C             27     CLR TR0                    ;Stopping Timer T0
+002D C28D             28     CLR TF0                    ;Clearing Overflow bit
+002F 80E9             29     SJMP ReCall 
+                      30     END                        ;End Program
+A51 MACRO ASSEMBLER  REF                                                                  03/05/2021 18:20:18 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAYFUNCTION. . .  C ADDR   0018H   A   
+HERE . . . . . . .  C ADDR   0028H   A   
+LED_BLINK. . . . .  C ADDR   0003H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+PARTDELAY. . . . .  C ADDR   001DH   A   
+RECALL . . . . . .  C ADDR   001AH   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

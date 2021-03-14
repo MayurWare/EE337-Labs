@@ -1,0 +1,45 @@
+A51 MACRO ASSEMBLER  Q1                                                                   02/01/2021 16:13:40 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\Q1.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE ..\Q1\Q1.a51 SET(SMALL) DEBUG PRINT(.\Listings\Q1.lst) OBJECT(.\Objects
+                      \Q1.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 00H         ;Start
+0000 7550FE            2     MOV 50H, #0FEH  ;Loading Number into 50H
+0003 754003            3     MOV 40H, #03H
+0006 E550              4     MOV A, 50H
+0008 7860              5     MOV R0, #60H
+000A                   6     divby10:       ;divby10 Function
+000A 75F00A            7     MOV B, #0AH
+000D 84                8     DIV AB         ;Divide A by B
+000E A6F0              9     MOV @R0, B
+0010 08               10     INC R0
+0011 D540F6           11     DJNZ 40H, divby10   ;Repeat 3 times for 3 digits
+0014 E561             12     MOV A, 61H
+0016 C4               13     SWAP A              ;Swap nibbles
+0017 2560             14     ADD A, 60H
+0019 F553             15     MOV 53H, A          ;tens place, units place
+001B 856252           16     MOV 52H, 62H        ;hundreds place
+001E 80FE             17     HERE: SJMP HERE 
+                      18     END                 ;End
+A51 MACRO ASSEMBLER  Q1                                                                   02/01/2021 16:13:40 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+DIVBY10. . . . . .  C ADDR   000AH   A   
+HERE . . . . . . .  C ADDR   001EH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

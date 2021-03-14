@@ -1,0 +1,74 @@
+A51 MACRO ASSEMBLER  Q2                                                                   02/14/2021 20:03:57 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\Q2.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Q2.a51 SET(SMALL) DEBUG PRINT(.\Listings\Q2.lst) OBJECT(.\Objects\Q2.ob
+                      j) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 000H                  ;Start Program
+0000                   2     Main:
+0000 7590FF            3     MOV P1, #0FFH             ;Setting input port P1
+0003 D294              4     SETB P1.4                 ;Setting all LEDs to 1
+0005 D295              5     SETB P1.5
+0007 D296              6     SETB P1.6
+0009 D297              7     SETB P1.7
+000B 1129              8     ACALL DelayFunction       ;5 second delay
+000D 1129              9     ACALL DelayFunction
+000F 1129             10     ACALL DelayFunction
+0011 1129             11     ACALL DelayFunction
+0013 1129             12     ACALL DelayFunction
+0015 E590             13     MOV A, P1                 ;Load P1 into A
+0017 540F             14     ANL A, #00001111B         ;Getting the values of switches 
+0019 F9               15     MOV R1, A                 ;Loading A into R1 
+                      16     
+001A                  17     blinkingLEDs:             ;Function for blinking LEDs
+001A 759000           18     MOV P1, #00H               
+001D 1129             19     ACALL DelayFunction
+001F 7590F0           20     MOV P1, #0F0H
+0022 1129             21     ACALL DelayFunction
+0024 D9F4             22     DJNZ R1, blinkingLEDs     
+0026 020000           23     LJMP Main
+0029                  24     DelayFunction:             ;Delay Function
+0029 7829             25     MOV R0,#41                 ;Load 41 into R0 (For 41 times repeatition)
+002B                  26     ReCall:
+002B D801             27     DJNZ R0,PartDelay        
+002D 22               28     RET
+002E 758901           29     PartDelay:MOV TMOD,#1      
+0031 758C3C           30     MOV TH0,#03CH
+0034 758AB0           31     MOV TL0,#0B0H 
+0037 D28C             32     SETB TR0
+0039                  33     here: 
+0039 308DFD           34     JNB TF0,here 
+003C C28C             35     CLR TR0 
+003E C28D             36     CLR TF0
+0040 80E9             37     SJMP ReCall 
+                      38     END                        ;End Program
+A51 MACRO ASSEMBLER  Q2                                                                   02/14/2021 20:03:57 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+BLINKINGLEDS . . .  C ADDR   001AH   A   
+DELAYFUNCTION. . .  C ADDR   0029H   A   
+HERE . . . . . . .  C ADDR   0039H   A   
+MAIN . . . . . . .  C ADDR   0000H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+PARTDELAY. . . . .  C ADDR   002EH   A   
+RECALL . . . . . .  C ADDR   002BH   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
