@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  Q2                                                                   03/13/2021 21:08:18 PAGE     1
+A51 MACRO ASSEMBLER  Q2                                                                   03/15/2021 14:21:46 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -65,7 +65,7 @@ LOC  OBJ            LINE     SOURCE
 0055 888C             55     MOV TH0, R0
 0057 898A             56     MOV TL0, R1
 0059 D28C             57     SETB TR0                  ;Run Timer 0
-A51 MACRO ASSEMBLER  Q2                                                                   03/13/2021 21:08:18 PAGE     2
+A51 MACRO ASSEMBLER  Q2                                                                   03/15/2021 14:21:46 PAGE     2
 
 005B D28E             58     SETB TR1                  ;Run Timer 1
                       59     
@@ -74,7 +74,7 @@ LOC  OBJ            LINE     SOURCE
 0060 020025           62     LJMP Main                 ;Jump to Main
                       63     
                       64     END
-A51 MACRO ASSEMBLER  Q2                                                                   03/13/2021 21:08:18 PAGE     3
+A51 MACRO ASSEMBLER  Q2                                                                   03/15/2021 14:21:46 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
