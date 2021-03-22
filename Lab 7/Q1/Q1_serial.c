@@ -13,11 +13,11 @@ bit tx_complete = 0,rx_complete = 0; //Bit flags for interrupts
 void uart_init(void)
 {
 	TMOD=0x20;			     //Configure Timer 1 in Mode 2
-	TH1=0xF3;					   //Load TH1 to obtain require Baudrate (here 4800Hz) (Refer Serial.pdf for calculations)
+	TH1=0xF3;			     //Load TH1 to obtain require Baudrate (here 4800Hz) (Refer Serial.pdf for calculations)
 	SCON=0x50;			     //Configure UART peripheral for 8-bit data transfer 
-	TR1=1;							 //Start Timer 1
-	ES=1;								 //Enable Serial Interrupt
-	EA=1;								 //Enable Global Interrupt
+	TR1=1;					 //Start Timer 1
+	ES=1;					 //Enable Serial Interrupt
+	EA=1;					 //Enable Global Interrupt
 }
 
 
@@ -28,7 +28,7 @@ void uart_init(void)
 void transmit_char(unsigned char ch)
 {
 	SBUF=ch;				//Load data in SBUF
-	while(!tx_complete); 			//Wait for tx_complete flag (interrupt to complete)
+	while(!tx_complete); 	//Wait for tx_complete flag (interrupt to complete)
 	tx_complete = 0;		//Clear tx_complete flag 
 }
 
@@ -56,8 +56,8 @@ unsigned char receive_char(void)
 	unsigned char ch = 0;
 	while(!rx_complete);				//Wait for rx_complete(interrupt to complete)
 	rx_complete = 0;
-	ch = SBUF;					//Read data from SBUF
-	return ch;					//Return read character
+	ch = SBUF;					        //Read data from SBUF
+	return ch;					        //Return read character
 }
 
 
@@ -71,14 +71,14 @@ unsigned char receive_char(void)
 ***********************************************************/	
 void serial_ISR(void) interrupt 4
 {
-		if(TI==1)			//check whether TI is set
-		{ 
-			TI = 0;			//Clear TI flag
+		if(TI==1)			    //check whether TI is set
+		{   
+			TI = 0;			    //Clear TI flag
 			tx_complete = 1;	//Set tx_complete flag indicating interrupt completion
 		}
 		else if(RI==1)			//check whether RI is set
 		{
-			RI = 0;			//Clear RI flag
+			RI = 0;			    //Clear RI flag
 			rx_complete = 1;	//Set rx_complete flag indicating interrupt completion
 		}
 }

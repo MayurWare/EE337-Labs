@@ -382,9 +382,14 @@
               <FilePath>.\STARTUP.A51</FilePath>
             </File>
             <File>
-              <FileName>main.c</FileName>
+              <FileName>Q1_main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\main.c</FilePath>
+              <FilePath>.\Q1_main.c</FilePath>
+            </File>
+            <File>
+              <FileName>Q1_serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Q1_serial.c</FilePath>
             </File>
           </Files>
         </Group>

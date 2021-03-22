@@ -25,7 +25,7 @@ void lcd_test(void)
 	them for a few times.
 ************************************************/
 void led_test(void)
-{P1=0xFF;            //LEDs ON
+{P1=0xF0;            //LEDs ON
  msdelay(1000);      //One Second Delay
 P1=0x00;             //LEDs OFF
 msdelay(1000);       //One Second Delay	
